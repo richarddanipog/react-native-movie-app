@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { icons } from '@/constants/icons';
-import { Image, ImageBackground, Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { images } from '@/constants/images';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -35,23 +35,8 @@ const _Layout = () => {
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
-          tabBarItemStyle: {
-            width: '100%',
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          tabBarStyle: {
-            backgroundColor: '#0F0D23',
-            borderRadius: 50,
-            marginHorizontal: 20,
-            marginBottom: 36,
-            height: 52,
-            position: 'absolute',
-            overflow: 'hidden',
-            borderWidth: 1,
-            borderColor: '#0F0D23',
-          },
+          tabBarItemStyle: styles.barItemStyle,
+          tabBarStyle: styles.tabBarStyle,
         }}
       >
         <Tabs.Screen
@@ -98,5 +83,25 @@ const _Layout = () => {
     </QueryClientProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  barItemStyle: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabBarStyle: {
+    backgroundColor: '#0F0D23',
+    borderRadius: 50,
+    marginHorizontal: 20,
+    marginBottom: 36,
+    height: 52,
+    position: 'absolute',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#0F0D23',
+  },
+});
 
 export default _Layout;

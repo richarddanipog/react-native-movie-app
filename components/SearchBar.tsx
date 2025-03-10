@@ -4,10 +4,17 @@ import { icons } from '@/constants/icons';
 
 interface ISearchBarProp {
   placeholder: string;
-  onPress: () => void;
+  value?: string;
+  onChangeText?: (text: string) => void;
+  onPress?: () => void;
 }
 
-const SearchBar: FC<ISearchBarProp> = ({ placeholder, onPress }) => {
+const SearchBar: FC<ISearchBarProp> = ({
+  placeholder,
+  onPress,
+  onChangeText,
+  value,
+}) => {
   return (
     <View className="flex-row items-center bg-dark-200 rounded-full px-5 py-4">
       <Image
@@ -19,6 +26,8 @@ const SearchBar: FC<ISearchBarProp> = ({ placeholder, onPress }) => {
       <TextInput
         onPress={onPress}
         placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
         className="flex-1 ml-2 text-white"
         placeholderTextColor="#A8B5DB"
       />
