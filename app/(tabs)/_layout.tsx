@@ -23,7 +23,7 @@ function TabIcon({ focused, icon, title }: any) {
   }
 
   return (
-    <View className="size-full justify-center items-center mt-4 rounded-full">
+    <View className="size-full min-w-[112px] min-h-16 justify-center items-center mt-4 rounded-full border-2 border-transparent">
       <Image source={icon} tintColor="#A8B5DB" className="size-5" />
     </View>
   );
