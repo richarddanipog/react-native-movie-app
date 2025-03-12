@@ -1,23 +1,28 @@
 import { View, Text, Image, FlatList, ActivityIndicator } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { images } from '@/constants/images';
 import MovieCard from '@/components/MovieCard';
 import { useFetchMovies } from '@/hooks/useFetch';
-import { useRouter } from 'expo-router';
 import { icons } from '@/constants/icons';
 import SearchBar from '@/components/SearchBar';
 import { useDebounce } from '@/hooks/useDebounce';
+import { updateSearchCount } from '@/services/appwrite';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const debounceSearch = useDebounce(searchQuery);
-  const router = useRouter();
 
   const {
     data: movies,
     isLoading,
     error,
   } = useFetchMovies({ query: debounceSearch }, !!debounceSearch);
+
+  useEffect(() => {
+    if (movies?.length && movies?.[0]) {
+      updateSearchCount(debounceSearch, movies[0]);
+    }
+  }, [movies]);
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
@@ -45,7 +50,7 @@ const Search = () => {
         contentContainerStyle={{ paddingBottom: 100 }}
         ListHeaderComponent={
           <>
-            <View className="w-full flex-row justify-center mt-20 items-center">
+            <View className="w-full flex-row justify-center mt-20 items-center mb-5">
               <Image source={icons.logo} className="w-12 h-10" />
             </View>
 

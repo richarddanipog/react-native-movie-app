@@ -3,9 +3,6 @@ import { Tabs } from 'expo-router';
 import { icons } from '@/constants/icons';
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { images } from '@/constants/images';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-const queryClient = new QueryClient();
 
 function TabIcon({ focused, icon, title }: any) {
   if (focused) {
@@ -31,7 +28,7 @@ function TabIcon({ focused, icon, title }: any) {
 
 const _Layout = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
@@ -80,7 +77,7 @@ const _Layout = () => {
           }}
         />
       </Tabs>
-    </QueryClientProvider>
+    </>
   );
 };
 
