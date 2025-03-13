@@ -8,7 +8,7 @@ export const fetchMovies = async ({
   try {
     const endpoint = query
       ? `/search/movie?query=${encodeURIComponent(query)}`
-      : '/discover/movie?sort_by=popularity.desc';
+      : '/movie/popular';
 
     const { data } = await api.get(endpoint);
     const movies = data.results;
@@ -21,6 +21,14 @@ export const fetchMovies = async ({
   }
 };
 
+const _getMovieCasts = async (movieId: string) => {
+  const { data } = await api.get(
+    `/movie/${movieId}/credits?api_key=${process.env.EXPO_PUBLIC_MOVIE_API_KEY}`
+  );
+
+  return data.cast || [];
+};
+
 export const fetchMovieDetails = async (
   movieId: string
 ): Promise<MovieDetails> => {
@@ -29,7 +37,13 @@ export const fetchMovieDetails = async (
       `/movie/${movieId}?api_key=${process.env.EXPO_PUBLIC_MOVIE_API_KEY}`
     );
 
-    return data;
+    const movieCast = await _getMovieCasts(movieId);
+    const movie: MovieDetails = {
+      ...data,
+      cast: movieCast,
+    };
+
+    return movie;
   } catch (error) {
     console.error('Error fetching meals:', error);
 

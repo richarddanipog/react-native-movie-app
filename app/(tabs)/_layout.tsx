@@ -72,7 +72,7 @@ const _Layout = () => {
             title: 'Profile',
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <TabIcon focused={focused} icon={icons.person} title="Proflie" />
+              <TabIcon focused={focused} icon={icons.person} title="Profile" />
             ),
           }}
         />

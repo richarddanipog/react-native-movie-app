@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -96,6 +97,35 @@ const MovieDetails = () => {
                   movie?.production_companies?.map((c) => c.name).join(' • ') ||
                   'N/A'
                 }
+              />
+            </View>
+
+            <View className="mt-10 px-5">
+              <Text className="text-lg text-white font-bold mb-3">Cast</Text>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                className="mb-4 mt-3"
+                data={movie?.cast}
+                contentContainerStyle={{
+                  gap: 5,
+                }}
+                renderItem={({ item }) => (
+                  <View key={item.cast_id}>
+                    <Image
+                      source={{
+                        uri: item.profile_path
+                          ? `https://image.tmdb.org/t/p/w500${item.profile_path}`
+                          : 'https://placehold.co/500x500/1a1a1a/FFFFFF.png',
+                      }}
+                      className="w-32 h-48 rounded-lg"
+                      resizeMode="cover"
+                    />
+                    <Text className="text-white mt-2">{item.name}</Text>
+                  </View>
+                )}
+                keyExtractor={(item) => item.id.toString()}
+                ItemSeparatorComponent={() => <View className="w-4" />}
               />
             </View>
           </ScrollView>
